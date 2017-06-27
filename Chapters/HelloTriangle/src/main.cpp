@@ -5,6 +5,8 @@
 #define WIDTH 800
 #define HEIGHT 600
 
+const bool enableWireframeMode = false;
+
 const char* vertexShaderSrc =
 "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
@@ -175,6 +177,8 @@ int main()
 	GLuint vao, vbo;
 	setupVAO(vao, vbo);
 
+	if (enableWireframeMode)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
