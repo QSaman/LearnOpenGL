@@ -8,6 +8,7 @@ set(SRC_LIST)
 ucm_add_dirs(src TO SRC_LIST)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "Chapters/HelloTriangle")
 
 ################################################################################
 # Enabling C++11. Add these two lines after add_executable. Notice you must 
