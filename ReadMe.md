@@ -1,0 +1,1 @@
+Sample codes from [LearnOpenGL](https://learnopengl.com) website. My codes are a little different and I'm using CMake.
