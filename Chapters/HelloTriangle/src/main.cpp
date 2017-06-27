@@ -137,7 +137,11 @@ void setupVAO(GLuint& vao, GLuint& vbo)
 	glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, (void*)NULL);
 	glEnableVertexAttribArray(0);
 
+	// note that this is allowed, the call to glVertexAttribPointer registered 
+	//VBO as the vertex attribute's bound vertex buffer object so afterwards 
+	//we can safely unbind:
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 	glBindVertexArray(0);
 }
 
