@@ -4,4 +4,5 @@ add_subdirectory(HelloTriangle)
 add_subdirectory(HelloRectangle)
 add_subdirectory(Exercise01)
 add_subdirectory(Exercise02)
+add_subdirectory(Exercise03)
 
