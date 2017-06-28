@@ -76,7 +76,7 @@ GLuint createFragmentShader()
 	return shader;
 }
 
-GLint compileShader(GLuint shader, char* shaderName)
+GLint compileShader(GLuint shader, const char* shaderName)
 {
 	glCompileShader(shader);
 	GLint success;
