@@ -118,11 +118,18 @@ bool setupShaders(GLuint& shaderProgram)
 
 void setupVAO(GLuint& vao, GLuint& vbo)
 {
-	GLfloat vertices[3][3] =
+	GLfloat vertices[2][3][3] =
 	{
-		{-0.5f, -0.5f, 0.0f},	//left
-		{0.5f, -0.5f, 0.0f},	//right
-		{0.0f, 0.5f, 0.0f}		//top
+		{
+			{-1.0f, -0.5f, 0.0f},	//left
+			{0.0f, -0.5f, 0.0f},	//right
+			{-0.5f, 0.5f, 0.0f}		//top
+		},
+		{
+			{0.0f, -0.5f, 0.0f},	//left
+			{1.0f, -0.5f, 0.0f},	//right
+			{0.5f, 0.5f, 0.0f}		//top
+		}
 	};
 
 	glGenVertexArrays(1, &vao);
@@ -156,7 +163,7 @@ void renderFrame(GLuint shaderProgram, GLuint vao)
 
 	glUseProgram(shaderProgram);
 	glBindVertexArray(vao);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 int main()
