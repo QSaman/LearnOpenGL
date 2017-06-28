@@ -116,23 +116,13 @@ bool setupShaders(GLuint& shaderProgram)
 	return true;
 }
 
-void setupVAO(GLuint& vao, GLuint& vbo)
+//In C when we pass an array to a function, sizeof(vertices) is equal to the size of a pointer.
+void setupVAO(GLuint vao, GLuint vbo, GLfloat vertices[][3], int size)
 {
-	GLfloat vertices[3][3] =
-	{
-		{-0.5f, -0.5f, 0.0f},	//left
-		{0.5f, -0.5f, 0.0f},	//right
-		{0.0f, 0.5f, 0.0f}		//top
-	};
-
-	glGenVertexArrays(1, &vao);
-
-	glGenBuffers(1, &vbo);
-
 	glBindVertexArray(vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, (void*)NULL);
 	glEnableVertexAttribArray(0);
@@ -151,9 +141,6 @@ void setupVAO(GLuint& vao, GLuint& vbo)
 
 void renderFrame(GLuint shaderProgram, GLuint vao)
 {
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-
 	glUseProgram(shaderProgram);
 	glBindVertexArray(vao);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -182,19 +169,39 @@ int main()
 	if (!setupShaders(shaderProgram))
 		return 1;
 
-	GLuint vao, vbo;
-	setupVAO(vao, vbo);
+	GLuint vao[2], vbo[2];
+	GLfloat vertices[2][3][3] =
+	{
+		{
+			{ -1.0f, -0.5f, 0.0f },	//left
+			{ 0.0f, -0.5f, 0.0f },	//right
+			{ -0.5f, 0.5f, 0.0f }		//top
+		},
+		{
+			{ 0.0f, -0.5f, 0.0f },	//left
+			{ 1.0f, -0.5f, 0.0f },	//right
+			{ 0.5f, 0.5f, 0.0f }		//top
+		}
+	};
+
+	glGenVertexArrays(2, vao);
+	glGenBuffers(2, vbo);
+	for (int i = 0; i < 2; ++i)
+		setupVAO(vao[i], vbo[i], vertices[i], sizeof(vertices[i]));
 
 	if (enableWireframeMode)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
-        renderFrame(shaderProgram, vao);
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		for (int i = 0; i < 2; ++i)
+			renderFrame(shaderProgram, vao[i]);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-	glDeleteVertexArrays(1, &vao);
-	glDeleteBuffers(1, &vbo);
+	glDeleteVertexArrays(2, vao);
+	glDeleteBuffers(2, vbo);
     glfwTerminate();
 }
