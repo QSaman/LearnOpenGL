@@ -73,6 +73,5 @@ if (NOT ${USE_System_GLM})
 #    include_directories(${PROJECT_SOURCE_DIR}/external/glm)
 endif (NOT ${USE_System_GLM})
 	 
-add_subdirectory(Chapters/HelloTriangle/HelloTriangle)
-add_subdirectory(Chapters/HelloTriangle/HelloRectangle)
+add_subdirectory(Chapters)
 
