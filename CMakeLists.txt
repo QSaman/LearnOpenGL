@@ -74,4 +74,5 @@ if (NOT ${USE_System_GLM})
 endif (NOT ${USE_System_GLM})
 	 
 add_subdirectory(Chapters/HelloTriangle)
+add_subdirectory(Chapters/HelloRectangle)
 
