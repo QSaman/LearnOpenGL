@@ -50,23 +50,9 @@ if (${USE_System_GLFW})
     pkg_search_module(GLFW REQUIRED glfw3)
     set(externalLibs ${externalLibs} ${GLFW_LIBRARIES})
 else (${USE_System_GLFW})
-	set(GLFW_INSTALL_LOCATION "${PROJECT_BINARY_DIR}/external/glfw")
-	include(ExternalProject)
-	ExternalProject_Add(external_glfw
-		URL https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
-		CMAKE_ARGS "${CMAKE_ARGS};"
-			"-DCMAKE_INSTALL_PREFIX=${GLFW_INSTALL_LOCATION};"
-			"-DGLFW_BUILD_DOCS=OFF;"
-			"-DGLFW_BUILD_TESTS=OFF;"
-			"-DGLFW_BUILD_EXAMPLES=OFF;"
-		)
-	add_library(glfw STATIC IMPORTED)
-	add_dependencies(glfw external_glfw)
-	#add_dependencies(${PROJECT_NAME} glfw)
-	include_directories(${GLFW_INSTALL_LOCATION}/include)
-	set(glfw_lib_name ${CMAKE_STATIC_LIBRARY_PREFIX}glfw3${CMAKE_STATIC_LIBRARY_SUFFIX})
-	set_property(TARGET glfw PROPERTY  IMPORTED_LOCATION "${GLFW_INSTALL_LOCATION}/lib/${glfw_lib_name}")
-	set(externalLibs ${externalLibs} glfw)
+    include(glfw)
+    include_directories(${GLFW_INCLUDE_DIR})
+    set(externalLibs ${externalLibs} ${GLFW_LIBRARIES})
 endif (${USE_System_GLFW})
 
 if (NOT ${USE_System_GLM})
@@ -74,4 +60,3 @@ if (NOT ${USE_System_GLM})
 endif (NOT ${USE_System_GLM})
 	 
 add_subdirectory(Chapters)
-
