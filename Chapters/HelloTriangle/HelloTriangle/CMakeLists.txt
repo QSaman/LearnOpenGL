@@ -10,6 +10,11 @@ ucm_add_dirs(src TO SRC_LIST)
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "Chapters/HelloTriangle")
 
+if(MSVC)
+	# The following line needs at least version 3.6
+	set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+endif()
+
 ################################################################################
 # Enabling C++11. Add these two lines after add_executable. Notice you must 
 # Enable C++11 for every target in all your CMake scripts.
