@@ -15,12 +15,6 @@ set_target_properties(${GLAD_LIB_NAME} PROPERTIES FOLDER "lib")
 include_directories(${PROJECT_SOURCE_DIR}/include)
 set(externalLibs ${externalLibs} ${GLAD_LIB_NAME})
 
-
-if(MSVC)
-	# The following line needs at least version 3.6
-	set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
-endif()
-
 ################################################################################
 if (${CMAKE_SYSTEM_NAME} STREQUAL Linux)
     OPTION(USE_System_GLFW "Use GLFW externally (recommended for platforms which support pkgconfig like Linux" ON)
