@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <cmath>
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -10,17 +11,15 @@ const bool enableWireframeMode = false;
 const char* vertexShaderSrc =
 "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
-"out vec4 vertexColor;\n"
 "void main()\n"
 "{\n"
 "	gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0f);\n"
-"   vertexColor = vec4(0.5f, 0.0f, 0.0f, 1.0f);\n"
 "}";
 
 const char* fragmentShaderSrc =
 "#version 330 core\n"
 "out vec4 FragColor;\n"
-"in vec4 vertexColor;\n"
+"uniform vec4 vertexColor;\n"
 "void main()\n"
 "{\n"
 "	FragColor = vertexColor;\n"
@@ -152,12 +151,16 @@ void setupVAO(GLuint& vao, GLuint& vbo)
 	glBindVertexArray(0);
 }
 
-void renderFrame(GLuint shaderProgram, GLuint vao)
+void renderFrame(GLuint shaderProgram, GLuint vao, GLint vertexColorUniformLoc)
 {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(shaderProgram);
+    auto time = glfwGetTime();
+    GLfloat green = static_cast<float>((sin(time) + 1) / 2);
+    //We can use glUniform4f after glUseProgram
+    glUniform4f(vertexColorUniformLoc, 0.0f, green, 0.0f, 1.0f);
 	glBindVertexArray(vao);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
@@ -185,6 +188,15 @@ int main()
 	if (!setupShaders(shaderProgram))
 		return 1;
 
+    //We can use glGetUniformLocation function after glLinkProgram
+    auto vertexColorUniformLocation = glGetUniformLocation(shaderProgram, "vertexColor");
+    if (vertexColorUniformLocation == -1)
+    {
+        std::cerr << "Cannot find uniform location" << std::endl;
+        glfwTerminate();
+        return 1;
+    }
+
 	GLuint vao, vbo;
 	setupVAO(vao, vbo);
 
@@ -193,13 +205,10 @@ int main()
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
-        renderFrame(shaderProgram, vao);
+        renderFrame(shaderProgram, vao, vertexColorUniformLocation);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-    int num;
-    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &num);
-    std::cout << "max vertex attributes: " << num << std::endl;
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
     glfwTerminate();
