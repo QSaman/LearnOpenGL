@@ -6,4 +6,5 @@ add_subdirectory(ShaderInterpolation)
 add_subdirectory(ShadersClass)
 add_subdirectory(ShadersExercise01)
 add_subdirectory(ShadersExercise02)
+add_subdirectory(ShadersExercise03)
 
