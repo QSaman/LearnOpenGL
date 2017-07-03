@@ -95,16 +95,20 @@ void setupVAO(GLuint& vao, GLuint& vbo)
 void renderFrame(ShaderLoader& shader, GLuint vao, GLint uniformLoc)
 {
     static float xOffset = -0.5f;
+    auto curTime = glfwGetTime();
+    static double prevTime = 0;
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    shader.use();    
+    shader.use();
     glUniform1f(uniformLoc, xOffset);
-    xOffset += 0.01f;
+    float delta = static_cast<float>(curTime - prevTime);
+    xOffset += 0.75f * delta;
     if (xOffset > 1.5f)
         xOffset = -0.5f;
 	glBindVertexArray(vao);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
+    prevTime = curTime;
 }
 
 int main()
