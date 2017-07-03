@@ -121,6 +121,15 @@ int main()
     }
 
     Shader shader("shaders/shader.vs", "shaders/shader.fs");
+    try
+    {
+        shader.loadShaders();
+    }
+    catch (std::string str)
+    {
+        std::cerr << str << std::endl;
+        return 1;
+    }
 
 	GLuint vao, vbo;
 	setupVAO(vao, vbo);

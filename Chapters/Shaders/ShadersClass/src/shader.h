@@ -13,7 +13,12 @@
 class Shader
 {
 public:
-    explicit Shader(const char* vertexPath, const char* fragmentPath)
+    explicit Shader(const char* vertexPath, const char* fragmentPath) :
+        vertexPath{vertexPath}, fragmentPath{fragmentPath}
+    {
+    }
+
+    void loadShaders()
     {
         std::string vertexCode = loadShader(vertexPath);
         std::string fragmentCode = loadShader(fragmentPath);
@@ -103,6 +108,7 @@ private:
 
 private:
     GLuint programId;
+    const char* vertexPath, * fragmentPath;
 };
 
 #endif
