@@ -1,4 +1,4 @@
-project(Exercise03)
+project(ShadersExercise01)
 cmake_minimum_required(VERSION 3.6)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
@@ -8,7 +8,7 @@ set(SRC_LIST)
 ucm_add_dirs(src TO SRC_LIST)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "Chapters/HelloTriangle")
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "Chapters/Shaders")
 
 ################################################################################
 # Enabling C++11. Add these two lines after add_executable. Notice you must 

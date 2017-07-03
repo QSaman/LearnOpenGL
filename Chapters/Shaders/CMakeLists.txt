@@ -4,4 +4,5 @@ add_subdirectory(SetColorThroughVertexShader)
 add_subdirectory(ShadersUniform)
 add_subdirectory(ShaderInterpolation)
 add_subdirectory(ShadersClass)
+add_subdirectory(ShadersExercise01)
 
