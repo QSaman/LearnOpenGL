@@ -1,5 +1,5 @@
-#ifndef SHADER_H
-#define SHADER_H
+#ifndef SHADER_LOADER_H
+#define SHADER_LOADER_H
 
 #include <glad/glad.h>
 
@@ -10,15 +10,15 @@
 #include <iostream>
 #include <exception>
 
-class Shader
+class ShaderLoader
 {
 public:
-    explicit Shader(const char* vertexPath, const char* fragmentPath) :
+    explicit ShaderLoader(const char* vertexPath, const char* fragmentPath) :
         vertexPath{vertexPath}, fragmentPath{fragmentPath}
     {
     }
 
-    void loadShaders()
+    void linkShaders()
     {
         std::string vertexCode = loadShader(vertexPath);
         std::string fragmentCode = loadShader(fragmentPath);
@@ -44,7 +44,7 @@ public:
         programId = glCreateProgram();
         glAttachShader(programId, vertexShaderId);
         glAttachShader(programId, fragmentShaderId);
-        if (!linkShaders())
+        if (!linkShadersHelper())
             throw ("Linking shaders error: " + getLinkErrorMessage());
         glDeleteShader(vertexShaderId);
         glDeleteShader(fragmentShaderId);
@@ -53,6 +53,11 @@ public:
     void use()
     {
         glUseProgram(programId);
+    }
+    
+    GLuint getProgramId()
+    {
+        return programId;
     }
 
 private:
@@ -87,7 +92,7 @@ private:
         return std::string(message.get());
     }
 
-    GLint linkShaders()
+    GLint linkShadersHelper()
     {
         glLinkProgram(programId);
         GLint success;

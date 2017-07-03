@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "shader.h"
+#include <shader_loader.h>
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -91,7 +91,7 @@ void setupVAO(GLuint& vao, GLuint& vbo)
 	glBindVertexArray(0);
 }
 
-void renderFrame(Shader& shader, GLuint vao)
+void renderFrame(ShaderLoader& shader, GLuint vao)
 {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -120,10 +120,10 @@ int main()
         return 1;
     }
 
-    Shader shader("shaders/shader.vs", "shaders/shader.fs");
+    ShaderLoader shader("shaders/shader.vs", "shaders/shader.fs");
     try
     {
-        shader.loadShaders();
+        shader.linkShaders();
     }
     catch (std::string str)
     {

@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 
 #include <shader_loader.h>
 
@@ -91,12 +92,17 @@ void setupVAO(GLuint& vao, GLuint& vbo)
 	glBindVertexArray(0);
 }
 
-void renderFrame(ShaderLoader& shader, GLuint vao)
+void renderFrame(ShaderLoader& shader, GLuint vao, GLint uniformLoc)
 {
+    static float xOffset = -0.5f;
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    shader.use();
+    shader.use();    
+    glUniform1f(uniformLoc, xOffset);
+    xOffset += 0.01f;
+    if (xOffset > 1.5f)
+        xOffset = -0.5f;
 	glBindVertexArray(vao);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
@@ -131,6 +137,8 @@ int main()
         return 1;
     }
 
+    auto uniformLoc = glGetUniformLocation(shader.getProgramId(), "xOffset");
+
 	GLuint vao, vbo;
 	setupVAO(vao, vbo);
 
@@ -139,7 +147,7 @@ int main()
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
-        renderFrame(shader, vao);
+        renderFrame(shader, vao, uniformLoc);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
