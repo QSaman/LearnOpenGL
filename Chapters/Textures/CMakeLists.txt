@@ -3,4 +3,5 @@ cmake_minimum_required(VERSION 3.6)
 add_subdirectory(WoodenContainerTexture)
 add_subdirectory(WoodenContainerTextureMixedColors)
 add_subdirectory(TextureCombined)
+add_subdirectory(TextureExercise01)
 
