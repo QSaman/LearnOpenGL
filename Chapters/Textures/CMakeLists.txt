@@ -6,4 +6,5 @@ add_subdirectory(TextureCombined)
 add_subdirectory(TextureExercise01)
 add_subdirectory(TextureExercise02)
 add_subdirectory(TextureExercise03)
+add_subdirectory(TextureExercise04)
 
