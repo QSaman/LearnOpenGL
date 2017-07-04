@@ -196,7 +196,7 @@ int main()
     MyImage image[2] =
     {
       {"shaders/container.jpg", GL_RGB, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE},
-      {"shaders/awesomeface.png", GL_RGBA, GL_NEAREST, GL_NEAREST}
+      {"shaders/awesomeface.png", GL_RGBA, GL_REPEAT, GL_REPEAT}
     };
     glGenTextures(2, texture);
     if (!setupTexture(texture, 2, image))
