@@ -15,6 +15,8 @@ set_target_properties(${GLAD_LIB_NAME} PROPERTIES FOLDER "lib")
 include_directories(${PROJECT_SOURCE_DIR}/include)
 set(externalLibs ${externalLibs} ${GLAD_LIB_NAME})
 
+set(PROJECTS_BIN_DIR ${CMAKE_BINARY_DIR}/bin)
+
 ################################################################################
 if (${CMAKE_SYSTEM_NAME} STREQUAL Linux)
     OPTION(USE_System_GLFW "Use GLFW externally (recommended for platforms which support pkgconfig like Linux" ON)
