@@ -4,4 +4,5 @@ add_subdirectory(WoodenContainerTexture)
 add_subdirectory(WoodenContainerTextureMixedColors)
 add_subdirectory(TextureCombined)
 add_subdirectory(TextureExercise01)
+add_subdirectory(TextureExercise02)
 
