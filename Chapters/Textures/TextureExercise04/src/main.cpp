@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 
 #include <shader_loader.h>
 
@@ -65,12 +66,18 @@ void processInput(GLFWwindow* window)
     else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
     {
         alpha += static_cast<float>(delta * speed);
-        alpha = std::min(alpha, 1.0f);
+		//windows.h has macro definition for both min and max so I got
+		//compilation error in Windows. One solution is to use 
+		//type parameter:
+        alpha = std::min<float>(alpha, 1.0f);
     }
     else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
     {
         alpha -= static_cast<float>(delta * speed);
-        alpha = std::max(alpha, 0.0f);
+		//windows.h has macro definition for both min and max so I got
+		//compilation error in Windows. One solution is to use 
+		//type parameter:
+        alpha = std::max<float>(alpha, 0.0f);
     }
 }
 
