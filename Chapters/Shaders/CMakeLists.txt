@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 
 set(DIR_NAME Shaders)
-set(CHAPTER_BIN_DIR "${PROJECTS_BIN_DIR}/${DIR_NAME}")
 
 add_subdirectory(SetColorThroughVertexShader)
 add_subdirectory(ShadersUniform)

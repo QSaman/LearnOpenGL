@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 
+set(DIR_NAME HelloTriangle)
+
 add_subdirectory(HelloTriangle)
 add_subdirectory(HelloRectangle)
 add_subdirectory(HelloTriangleExercise01)
