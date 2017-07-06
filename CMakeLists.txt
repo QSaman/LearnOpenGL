@@ -16,22 +16,18 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 set(externalLibs ${externalLibs} ${GLAD_LIB_NAME})
 
 ################################################################################
-if (${CMAKE_SYSTEM_NAME} STREQUAL Linux)
-    OPTION(USE_System_GLFW "Use GLFW externally (recommended for platforms which support pkgconfig like Linux" ON)
-    OPTION(USE_System_GLM "Use GLM externally (recommended for platforms like Linux" ON)
-	find_library(dl_lib dl)
-	set(externalLibs ${externalLibs} ${dl_lib})
-else (${CMAKE_SYSTEM_NAME} STREQUAL Linux)
-    OPTION(USE_System_GLFW "Use GLFW externally (recommended for platforms which support pkgconfig like Linux" OFF)
-    OPTION(USE_System_GLM "Use GLM externally (recommended for platforms like Linux" OFF)
-endif (${CMAKE_SYSTEM_NAME} STREQUAL Linux)    
-################################################################################
 
-# Adding header files recursively. aux_source_directory doesn't do that very well
-#file(GLOB_RECURSE headerFilesList "*.h" "*.hpp")
-#add_custom_target(headerFiles SOURCES ${headerFilesList})
+if (UNIX AND NOT APPLE)
+    set(DEFAULT_DOWNLOAD OFF)
+else ()
+    set(DEFAULT_DOWNLOAD ON)
+endif ()
+
+OPTION(DOWNLOAD_GLFW "Download GLFW. Recommended for Windows and Apple. In Linux use your package manager to install it." ${DEFAULT_DOWNLOAD})
+OPTION(DOWNLOAD_GLM "Download GLM. Recommended for Windows and Apple. In Linux use your package manager to install it." ${DEFAULT_DOWNLOAD})
 
 ################################################################################
+
 # Enabling C++11. Add these two lines after add_executable. Notice you must 
 # Enable C++11 for every target in all your CMake scripts.
 set_property(TARGET ${GLAD_LIB_NAME} PROPERTY CXX_STANDARD 11)
@@ -39,17 +35,17 @@ set_property(TARGET ${GLAD_LIB_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
 
 ################################################################################
 
-if (${USE_System_GLFW})
-    include(glfw)
+if (${DOWNLOAD_GLFW})
+    include(DownloadGLFW)
     include_directories(${GLFW_INCLUDE_DIR})
     set(externalLibs ${externalLibs} ${GLFW_LIBRARIES})
 else ()
-    include(DownloadGLFW)
+    include(glfw)
     include_directories(${GLFW_INCLUDE_DIR})
     set(externalLibs ${externalLibs} ${GLFW_LIBRARIES})
 endif ()
 
-if (NOT ${USE_System_GLM})
+if (${DOWNLOAD_GLM})
     include(DownloadGLM)
     include_directories(${GLM_INCLUDE_DIR})
 endif ()
