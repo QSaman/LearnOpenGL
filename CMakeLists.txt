@@ -50,7 +50,8 @@ else (${USE_System_GLFW})
 endif (${USE_System_GLFW})
 
 if (NOT ${USE_System_GLM})
-#    include_directories(${PROJECT_SOURCE_DIR}/external/glm)
+    include(DownloadGLM)
+    include_directories(${GLM_INCLUDE_DIR})
 endif (NOT ${USE_System_GLM})
 	 
 add_subdirectory(Chapters)
