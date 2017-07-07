@@ -1,4 +1,4 @@
-#include <glad/glad.h>
+#include <opengl_loader.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <cmath>
@@ -42,11 +42,6 @@ GLFWwindow* initGLFW()
     if (window != NULL)
         glfwMakeContextCurrent(window);
     return window;
-}
-
-bool loadOpenGL()
-{
-    return gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 }
 
 //Callbacks:

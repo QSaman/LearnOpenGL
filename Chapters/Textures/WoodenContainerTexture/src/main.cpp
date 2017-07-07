@@ -1,4 +1,4 @@
-#include <glad/glad.h>
+#include <opengl_loader.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <cmath>
@@ -27,11 +27,6 @@ GLFWwindow* initGLFW()
     if (window != NULL)
         glfwMakeContextCurrent(window);
     return window;
-}
-
-bool loadOpenGL()
-{
-    return gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 }
 
 //Callbacks:
@@ -196,6 +191,6 @@ int main()
     }
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
-    glad_glDeleteBuffers(1, &ebo);
+    glDeleteBuffers(1, &ebo);
     glfwTerminate();
 }

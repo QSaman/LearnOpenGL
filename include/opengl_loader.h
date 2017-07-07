@@ -1,10 +1,12 @@
 #ifndef OPENGL_LOADER_H
-#define #ifndef OPENGL_LOADER_H
+#define OPENGL_LOADER_H
 
 #ifdef USE_GLBINDING
 
 #include <glbinding/gl/gl.h>
 #include <glbinding/Binding.h>
+
+using namespace gl;
 
 #define GLFW_INCLUDE_NONE 
 
@@ -13,6 +15,7 @@
 #ifdef USE_GLAD
 
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 #endif
 

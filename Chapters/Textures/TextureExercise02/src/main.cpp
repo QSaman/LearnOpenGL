@@ -1,4 +1,4 @@
-#include <glad/glad.h>
+#include <opengl_loader.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <cmath>
@@ -15,8 +15,13 @@ struct MyImage
 {
     const char* path;
     GLenum pixelFormat;
+#ifdef USE_GLBINDING
+    GLenum textureWrapS;
+    GLenum textureWrapT;
+#else
     GLint textureWrapS;
     GLint textureWrapT;
+#endif
 };
 
 const bool enableWireframeMode = false;
@@ -35,11 +40,6 @@ GLFWwindow* initGLFW()
     if (window != NULL)
         glfwMakeContextCurrent(window);
     return window;
-}
-
-bool loadOpenGL()
-{
-    return gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 }
 
 //Callbacks:
@@ -154,7 +154,7 @@ void renderFrame(ShaderLoader& shader, GLuint vao, GLuint* texture, int texNum)
     for (int i = 0; i < texNum; ++i)
     {
         // bind textures on corresponding texture units
-        glActiveTexture(GL_TEXTURE0 + static_cast<GLenum>(i));
+        glActiveTexture(static_cast<GLenum>(static_cast<int>(GL_TEXTURE0) + i));
         glBindTexture(GL_TEXTURE_2D, texture[i]);
     }
 	glBindVertexArray(vao);

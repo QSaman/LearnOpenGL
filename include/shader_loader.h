@@ -1,7 +1,7 @@
 #ifndef SHADER_LOADER_H
 #define SHADER_LOADER_H
 
-#include <glad/glad.h>
+#include <opengl_loader.h>
 
 #include <string>
 #include <fstream>
