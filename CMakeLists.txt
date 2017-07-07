@@ -61,7 +61,7 @@ elseif (${OPENGL_LOADER} STREQUAL "Glad")
         find_library(LIB_DL dl)
         target_link_libraries(${GLAD_LIB_NAME} ${LIB_DL})
     endif ()
-    set_target_properties(${GLAD_LIB_NAME} PROPERTIES FOLDER "lib")
+    set_target_properties(${GLAD_LIB_NAME} PROPERTIES FOLDER "lib/glad")
     include_directories(${PROJECT_SOURCE_DIR}/glad/include)
     set(externalLibs ${externalLibs} ${GLAD_LIB_NAME})
     # Enabling C++11. Add these two lines after add_executable. Notice you must 
