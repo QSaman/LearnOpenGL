@@ -38,4 +38,7 @@ set_property(TARGET glbinding PROPERTY  IMPORTED_LOCATION "${GLBINDING_INSTALL_L
 set(GLBINDING_LIBRARIES glbinding)
 if (WIN32)
 	set_target_properties(glbinding PROPERTIES INTERFACE_LINK_LIBRARIES "glu32;opengl32")
+else ()
+    find_package(OpenGL REQUIRED)
+    set_target_properties(glbinding PROPERTIES INTERFACE_LINK_LIBRARIES "${OPENGL_LIBRARIES}")
 endif ()
