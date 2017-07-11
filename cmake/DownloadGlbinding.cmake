@@ -35,10 +35,9 @@ set(glbinding_debug_lib_name ${CMAKE_STATIC_LIBRARY_PREFIX}glbindingd${CMAKE_STA
 set(glbinding_lib_name ${CMAKE_STATIC_LIBRARY_PREFIX}glbinding${CMAKE_STATIC_LIBRARY_SUFFIX})
 set_property(TARGET glbinding PROPERTY  IMPORTED_LOCATION_DEBUG "${GLBINDING_INSTALL_LOCATION}/lib/${glbinding_debug_lib_name}")
 set_property(TARGET glbinding PROPERTY  IMPORTED_LOCATION "${GLBINDING_INSTALL_LOCATION}/lib/${glbinding_lib_name}")
+
+find_package(OpenGL REQUIRED)
+set_target_properties(glbinding PROPERTIES INTERFACE_LINK_LIBRARIES "${OPENGL_LIBRARIES}")
+
 set(GLBINDING_LIBRARIES glbinding)
-if (WIN32)
-	set_target_properties(glbinding PROPERTIES INTERFACE_LINK_LIBRARIES "glu32;opengl32")
-else ()
-    find_package(OpenGL REQUIRED)
-    set_target_properties(glbinding PROPERTIES INTERFACE_LINK_LIBRARIES "${OPENGL_LIBRARIES}")
-endif ()
+
