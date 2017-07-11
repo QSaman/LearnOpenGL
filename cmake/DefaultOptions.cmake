@@ -1,3 +1,6 @@
+# Allow subfolders in solution file
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 if (CMAKE_VERSION VERSION_LESS "3.1")
 	set(DEFAULT_TARGET_OPTIONS
 		CXX_STANDARD 11
