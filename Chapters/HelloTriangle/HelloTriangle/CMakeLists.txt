@@ -10,16 +10,9 @@ set(SRC_LIST)
 ucm_add_dirs(src TO SRC_LIST)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-set_target_properties(${PROJECT_NAME} PROPERTIES 
+set_target_properties(${PROJECT_NAME} PROPERTIES
+        ${DEFAULT_TARGET_OPTIONS}
 	FOLDER "Chapters/${DIR_NAME}")
-
-################################################################################
-# Enabling C++11. Add these two lines after add_executable. Notice you must 
-# Enable C++11 for every target in all your CMake scripts.
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
-
-################################################################################
 
 target_link_libraries(${PROJECT_NAME} ${externalLibs})
 
