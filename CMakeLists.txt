@@ -1,5 +1,6 @@
 project(LearnOpenGL)
-cmake_minimum_required(VERSION 3.6)
+set(CMAKE_MINIMUM_VERSION 2.8)
+cmake_minimum_required(VERSION ${CMAKE_MINIMUM_VERSION})
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 

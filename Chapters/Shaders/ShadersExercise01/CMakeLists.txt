@@ -1,5 +1,5 @@
 project(ShadersExercise01)
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION ${CMAKE_MINIMUM_VERSION})
 
 set(BIN_DIR "bin/$<CONFIG>/${DIR_NAME}/${PROJECT_NAME}")
 
