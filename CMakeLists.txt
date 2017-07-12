@@ -63,10 +63,9 @@ elseif (${OPENGL_LOADER} STREQUAL "Glad")
     set_target_properties(${GLAD_LIB_NAME} PROPERTIES FOLDER "lib/glad")
     include_directories(${PROJECT_SOURCE_DIR}/glad/include)
     set(externalLibs ${externalLibs} ${GLAD_LIB_NAME})
-    # Enabling C++11. Add these two lines after add_executable. Notice you must 
-    # Enable C++11 for every target in all your CMake scripts.
-    set_property(TARGET ${GLAD_LIB_NAME} PROPERTY CXX_STANDARD 11)
-    set_property(TARGET ${GLAD_LIB_NAME} PROPERTY CXX_STANDARD_REQUIRED ON) 
+    if (DEFAULT_TARGET_OPTIONS)
+        set_target_properties(TARGET ${GLAD_LIB_NAME} ${DEFAULT_TARGET_OPTIONS})
+    endif ()
 else ()
     message(FATAL_ERROR "Unknown OpenGL loading library.") 
 endif ()

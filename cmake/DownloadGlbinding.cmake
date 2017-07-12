@@ -4,6 +4,8 @@
 # 1. GLBINDING_INCLUDE_DIR
 # 2. GLBINDING_LIBRARIES
 
+cmake_minimum_required(VERSION 3.1)
+
 set(GLBINDING_INSTALL_LOCATION "${PROJECT_BINARY_DIR}/external/glbinding")
 
 #There is a bug in 2.1.3 which prevent us to compile it in Windows. Here is a simple workaround:
@@ -37,6 +39,7 @@ set_property(TARGET glbinding PROPERTY  IMPORTED_LOCATION_DEBUG "${GLBINDING_INS
 set_property(TARGET glbinding PROPERTY  IMPORTED_LOCATION "${GLBINDING_INSTALL_LOCATION}/lib/${glbinding_lib_name}")
 
 find_package(OpenGL REQUIRED)
+#The following variable requires CMake 3.1
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 set_target_properties(glbinding PROPERTIES INTERFACE_LINK_LIBRARIES "${OPENGL_LIBRARIES};Threads::Threads")
