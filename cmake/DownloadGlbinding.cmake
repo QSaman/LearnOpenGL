@@ -37,7 +37,9 @@ set_property(TARGET glbinding PROPERTY  IMPORTED_LOCATION_DEBUG "${GLBINDING_INS
 set_property(TARGET glbinding PROPERTY  IMPORTED_LOCATION "${GLBINDING_INSTALL_LOCATION}/lib/${glbinding_lib_name}")
 
 find_package(OpenGL REQUIRED)
-set_target_properties(glbinding PROPERTIES INTERFACE_LINK_LIBRARIES "${OPENGL_LIBRARIES}")
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+set_target_properties(glbinding PROPERTIES INTERFACE_LINK_LIBRARIES "${OPENGL_LIBRARIES};Threads::Threads")
 
 set(GLBINDING_LIBRARIES glbinding)
 
