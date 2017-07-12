@@ -19,6 +19,11 @@ target_link_libraries(${PROJECT_NAME} ${externalLibs})
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 	COMMAND "${CMAKE_COMMAND}" -E copy_directory "${PROJECT_SOURCE_DIR}/shaders" "${PROJECT_BINARY_DIR}/shaders")
 	
+if(MSVC AND (CMAKE_VERSION VERSION_GREATER 3.6 OR CMAKE_VERSION VERSION_EQUAL 3.6))
+	# The following line needs at least version 3.6
+	set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+endif()
+	
 install(TARGETS ${PROJECT_NAME} DESTINATION "${BIN_DIR}")
 install(DIRECTORY "${PROJECT_SOURCE_DIR}/shaders" DESTINATION ${BIN_DIR}) 
 
