@@ -214,6 +214,10 @@ int main()
     glm::mat4 trans;
     trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0, 0, 1));
     trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
+
+    auto uniformLoc = glGetUniformLocation(shader.getProgramId(), "transform");
+    glUniformMatrix4fv(uniformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
