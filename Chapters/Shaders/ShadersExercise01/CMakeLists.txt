@@ -3,9 +3,6 @@ cmake_minimum_required(VERSION ${CMAKE_MINIMUM_VERSION})
 
 set(BIN_DIR "bin/$<CONFIG>/${DIR_NAME}/${PROJECT_NAME}")
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
-include(ucm)
-
 set(SRC_LIST)
 ucm_add_dirs(src TO SRC_LIST)
 
