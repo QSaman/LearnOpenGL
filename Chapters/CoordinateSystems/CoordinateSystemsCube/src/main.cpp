@@ -69,7 +69,9 @@ void setupVAO(GLuint& vao, GLuint& vbo, GLuint& ebo)
     };
 
 
-    Vertex vertices[2][4] =
+    //There are some duplications for vertices. Since each face of cube has it's own texture,
+    //we need to duplicate some vertices
+    Vertex vertices[6][4] =
 	{
         //Front face
         {
@@ -80,10 +82,38 @@ void setupVAO(GLuint& vao, GLuint& vbo, GLuint& ebo)
         },
         //back face
         {
-            {{0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},     //top right
-            {{0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},    //bottom right
-            {{-0.5f, -0.5f, -0.5f}, {1.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},   //bottom left
+            {{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},     //top right
+            {{0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},    //bottom right
+            {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},   //bottom left
+            {{-0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}     //top left
+        },
+        //right face
+        {
+            {{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},     //top right
+            {{0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},    //bottom right
+            {{-0.5f, -0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},   //bottom left
+            {{0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}     //top left
+        },
+        //Left face
+        {
+            {{-0.5f, 0.5f, 0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},     //top right
+            {{-0.5f, -0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},    //bottom right
+            {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},   //bottom left
             {{-0.5f, 0.5f, -0.5f}, {1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}     //top left
+        },
+        //Top face
+        {
+            {{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},     //top right
+            {{0.5f, 0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},    //bottom right
+            {{-0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},   //bottom left
+            {{-0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}     //top left
+        },
+        //Bottom face
+        {
+            {{0.5f, -0.5f, 0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},     //top right
+            {{0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},    //bottom right
+            {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},   //bottom left
+            {{-0.5f, -0.5f, 0.5f}, {0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}     //top left
         }
 	};    
 
@@ -102,23 +132,23 @@ void setupVAO(GLuint& vao, GLuint& vbo, GLuint& ebo)
         },
         //Right face
         {
-            {4, 5, 0},
-            {5, 1, 0}
+            {8, 9, 11},
+            {9, 10, 11}
         },
         //Left face
         {
-            {3, 2, 7},
-            {2, 6, 7}
+            {12, 13, 15},
+            {13, 14, 15}
         },
         //Top face
         {
-            {4, 0, 7},
-            {0, 3, 7}
+            {16, 17, 19},
+            {17, 18, 19}
         },
         //Bottom face
         {
-            {5, 1, 6},
-            {1, 2, 6}
+            {20, 21, 23},
+            {21, 22, 23}
         }
     };
 
@@ -198,7 +228,7 @@ void renderFrame(ShaderLoader& shader, GLuint vao, GLuint* texture, int texNum)
 
     //We should reset the model matrix because it's a global variable!
     model = glm::mat4();
-    model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, static_cast<float>(glfwGetTime()) * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
     view = glm::mat4();
     view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
     glUniformMatrix4fv(glGetUniformLocation(shader.getProgramId(), "model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -260,9 +290,9 @@ int main()
     glUniform1i(glGetUniformLocation(shader.getProgramId(), "ourTexture1"), 0);
     glUniform1i(glGetUniformLocation(shader.getProgramId(), "ourTexture2"), 1);
 
-    //projection = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / HEIGHT, 0.1f, 100.0f);
+    projection = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / HEIGHT, 0.1f, 100.0f);
     //In model matrix we translate objects by (0, 0, -3), so we have:
-    projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -3.5f, 2.5f);
+    //projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -3.5f, 2.5f);
     glUniformMatrix4fv(glGetUniformLocation(shader.getProgramId(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
     while (!glfwWindowShouldClose(window))
     {
