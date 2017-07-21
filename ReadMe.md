@@ -1,1 +1,1 @@
-Sample codes from [LearnOpenGL](https://learnopengl.com) website. My codes are a little different and I'm using CMake.
+Sample codes from [LearnOpenGL](https://learnopengl.com) website. My codes are a little different and I'm using CMake. You can also check this [website](http://in2gpu.com/opengl-3/).
