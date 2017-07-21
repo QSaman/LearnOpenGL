@@ -23,7 +23,7 @@ struct MyImage
     GLenum pixelFormat;
 };
 
-const bool enableWireframeMode = false;
+const bool enableWireframeMode = true;
 
 GLFWwindow* initGLFW()
 {
@@ -118,6 +118,8 @@ void setupVAO(GLuint& vao, GLuint& vbo, GLuint& ebo)
 	};    
 
     //Don't forget to tell glDrawElements we have 36 vertices
+    //The indices are clockwise. For each face we have:
+    //(top right, bottom right, top left), (bottom right, bottom left, top left)
     GLuint indices[6][2][3] =
     {
         //Front face
