@@ -71,6 +71,22 @@ void setupVAO(GLuint& vao, GLuint& vbo, GLuint& ebo)
 
     //There are some duplications for vertices. Since each face of cube has it's own texture,
     //we need to duplicate some vertices
+    //
+    //If you want to re-use vertices (as you did by specifying only 8 vertices) you need to
+    //make sure each vertex uniquely describes the vertex data for that point, this includes
+    //all vertex attributes of a vertex and not just positions. Because the texture coordinates
+    //are different for each face (even though they share some of the same positions as other faces)
+    //they do not share the same texture coordinates and these points can thus not be shared by
+    //multiple triangles which is what you're trying to do.
+    //
+    //In the case of our cube, most vertices are unique on its own (they have a set of point
+    //and texture coordinate data that is unique to that vertex) so for those it is not
+    //possible to share vertices among the cube's triangles. The cube hosts a total of
+    //36 vertices and some of them can indeed be shared (shared edge of the two triangles per face)
+    //as they have the same vertex attributes (24 are unique so 12 vertices can be shared).
+    //
+    //Note that a cube is a bit of a worst-case example as most complex models usually do share quite
+    //a few vertices among triangles.
     Vertex vertices[6][4] =
 	{
         //Front face
