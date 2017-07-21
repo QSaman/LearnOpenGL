@@ -91,7 +91,7 @@ void setupVAO(GLuint& vao, GLuint& vbo, GLuint& ebo)
         {
             {{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},     //top right
             {{0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},    //bottom right
-            {{-0.5f, -0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},   //bottom left
+            {{0.5f, -0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},   //bottom left
             {{0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}     //top left
         },
         //Left face
@@ -105,14 +105,14 @@ void setupVAO(GLuint& vao, GLuint& vbo, GLuint& ebo)
         {
             {{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},     //top right
             {{0.5f, 0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},    //bottom right
-            {{-0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},   //bottom left
+            {{-0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},   //bottom left
             {{-0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}     //top left
         },
         //Bottom face
         {
             {{0.5f, -0.5f, 0.5f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},     //top right
             {{0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},    //bottom right
-            {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},   //bottom left
+            {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},   //bottom left
             {{-0.5f, -0.5f, 0.5f}, {0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}     //top left
         }
 	};    
@@ -293,7 +293,7 @@ int main()
     projection = glm::perspective(glm::radians(45.0f), static_cast<float>(WIDTH) / HEIGHT, 0.1f, 100.0f);
     //In model matrix we translate objects by (0, 0, -3), so we have:
     //projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -3.5f, 2.5f);
-    glUniformMatrix4fv(glGetUniformLocation(shader.getProgramId(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(shader.getProgramId(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));    
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
