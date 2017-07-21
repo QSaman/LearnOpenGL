@@ -23,7 +23,7 @@ struct MyImage
     GLenum pixelFormat;
 };
 
-const bool enableWireframeMode = true;
+const bool enableWireframeMode = false;
 
 GLFWwindow* initGLFW()
 {
